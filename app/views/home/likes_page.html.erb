@@ -1,0 +1,132 @@
+
+<div class="user-profile">
+  <div class="user-profile__container">
+
+    <div class="form-error">
+      <% if @error_message %>
+        <%= @error_message %>
+      <% end %>
+    </div>
+    <div class="left-container">
+      <div class="left-container__user-page">
+      <p class="left-container__p"><i class="far fa-smile user-page"></i><span id="icon-moji">楽しんだ</span> <%= @num_of_fun %> </p>
+      <p class="left-container__p"><i class="fas fa-film user-page"></i><span id="icon-moji">映画の本数</span> <%= @num_of_movies %></p>
+      <p class="left-container__p"><span class="fa fa-heart like-btn user-page"></span><span id="icon-moji">総いいね数</span> <%= @num_of_likes %></p>
+      <p class="left-container__p"><i class="fab fa-rocketchat"><span id="icon-moji"></span></i><%= @num_of_comments %></p>
+      </div>
+    </div>
+    <div class="right-container">
+      <div class="right-container__linking">
+        <div class="image-container">
+          <div class="image-container__header-container">
+            <img class="image-container__header" src="<%="/user_headers/#{@user.header}"%>">
+            <img class="image-container__img" src="<%="/user_images/#{@user.image_name}"%>">
+
+          </div>
+          <div class="image-container__edit-follow-container">
+
+          <% if @user != @current_user %>
+            <% unless @current_user.following.include?(@user) %>
+              <%= link_to("フォロー", "/follow/#{@user.id}", class: "image-container__link") %>
+            <% else %>
+              <%= link_to("フォロー解除", "/unfollow/#{@user.id}", class: "image-container__link") %>
+            <% end %>
+          <% else %>
+            <button class="modal-edit-profile__btn">Setting</button>
+          <% end %>
+          </div>
+        </div>
+        <div class="user-profile__text">
+
+        <h3><%= @user.name %></h3>
+        <p><%= simple_format(@user.description) %></p>
+        <p class="user-profile__follow"><%= @user.following.count %> <span class="user-profile__sub-text">Following</span>　</p>
+        <p class="user-profile__follow"><%= @user.followers.count %> <span class="user-profile__sub-text">Followers</span></p>
+        </div>
+
+        <div class="modal-edit-profile">
+          <p class="modal-edit-profile__logout"><%= link_to("Log out", '/logout') %></p>
+          <div class="modal-edit-profile__content">
+
+            <%= form_with(url: "/user/edit/#{@current_user.id}", local: true, multiport: true) do |form| %>
+              <span class="modal-edit-profile__close">&times;</span>
+              <p class="modal-edit-profile__p">名前</p>
+              <div class="modal-edit-profile__name-cover">
+                <%= form.text_field :name, value: @name, class: "modal-edit-profile__name" %>
+
+                <span class="modal-edit-profile__name-limit-counter"></span>
+              </div>
+              <p class="modal-edit-profile__p">プロフィール画像</p>
+              <%= form.file_field :image, class: "modal-edit-profile__image" %>
+              <p class="modal-edit-profile__p">ヘッダー画像</p>
+              <%= form.file_field :header, class: "modal-edit-profile__image" %>
+              <p>プロフィール文</p>
+              <%= form.text_area :description, value: @description, class: "modal-edit-profile__textarea" %>
+              <br><%= form.submit "送信" , class: "modal-edit-profile__submit" %>
+            <% end %>
+
+        </div>
+      </div>
+      <div class="top-wrapper">
+        <div class="top-wrapper__header">
+        <ul class="top-wrapper__ul">
+          <li class="top-wrapper__li"><span class="top-wrapper__header-h2"><a href="<%="/user_page/#{@user.id}"%>">Post</a></span></li>
+          <li class="top-wrapper__li"><span class="top-wrapper__header-h2"><a href="<%="/user_page/likes/#{@user.id}"%>">Likes</a></span></li>
+        </ul>
+        </div>
+
+          <% if @posts %>
+            <% @posts.each do |post| %>
+              <% comments_counter = Post.where(post_to: post.id).count %>
+              <% post_user = User.find_by(id: post.user_id) %>
+              <div class="top-wrapper__user-wrapper">
+              <div class="top-wrapper__user-content">
+
+              <% movie = Movie.find_by(id: post.movie_id) %>
+
+              <img class="top-wrapper__img" src="<%="/user_images/#{post_user.id}.jpg"%>">
+
+              <div class="top-wrapper__text-content">
+                <h3 class="top-wrapper__name-title"><%= post_user.name %> <a href="<%="posts/#{movie.id}"%>"><%= movie.title %></a></h3>
+                <%= simple_format(post.content) %>
+              </div>
+              <div class="top-wrapper__clear"></div>
+              <div class="post-footer">
+                <button class="post-footer__comment-btn"><i class="fab fa-rocketchat"><span id="icon-moji"><%= comments_counter %></span></i></button>
+
+                <% if Like.find_by(id_user_pressed_liked: @current_user, post_id: post.id) %>
+                  <%= button_to("/like/destroy/#{post.id}", method: :post) do %>
+                     <span class="fa fa-heart like-btn-unlike"> <%= Like.where(post_id: post.id).count %></span>
+                  <% end %>
+                <% else %>
+                  <%= button_to("/like/create/#{post.id}", method: :post) do %>
+                    <span class="fa fa-heart like-btn"> <%= Like.where(post_id: post.id).count %></span>
+                  <% end %>
+                <% end %>
+
+              </div>
+
+              <div class="modal-comment">
+                <div class="modal-comment__content">
+                  <%= form_with(url: "/create_comment_to_post/#{post.id}", local: true) do |form| %>
+                    <span class="modal-comment__close">&times;</span>
+                    <h2 class="modal-comment__h2"><%= "「#{post.title}」へコメント" %></h2>
+                    <%= form.text_area :comment, class: "modal-comment__textarea" %>
+                    <br><%= form.submit "送信", class: "modal-comment__submit" %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!--テキストボックスに文字制限の表示をしたかったんだけど、Qjsが必要らしくいったん断念。-->
+<%= javascript_pack_tag 'post/text_size_check' %>
+<%= javascript_pack_tag 'post/index' %>

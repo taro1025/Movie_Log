@@ -1,0 +1,52 @@
+.post-footer{
+  //position: relative;
+  height: 27px;
+  padding-right: 30px;
+  @media(max-width: 480px){
+    padding-right: 40px;
+  }
+  &__comment-btn{
+    display: inline-block;
+    float:right;
+    //position: absolute;
+    //top: 0;
+    //left:10%;
+    width: 10px;
+    background-color: initial;
+  }
+
+  &__comment-btn:hover{
+    cursor: pointer;
+  }
+}
+
+
+.like-btn {
+  color: #8899a6;
+
+}
+
+.like-btn-unlike {
+  color: #ff2581;
+}
+//likeボタン
+.button_to{
+  float:right;
+  padding-right: 40px;
+  display: inline-block;
+}
+.button_to button{
+
+  display: inline-block;
+  //position: absolute;
+  //top: 0;
+  //left: 15%;
+  background-color: initial;
+  border: initial;
+  padding: initial;
+}
+
+.text-content a:hover{
+
+  cursor: pointer;
+}

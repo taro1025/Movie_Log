@@ -1,0 +1,75 @@
+// Place all the styles related to the movie controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.container{
+  @media(max-width: 1980px){
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 100px;
+    //text-align: center;
+    padding:50px, 0, 50px, 0;
+    //position: relative;
+  }
+  @media(max-width: 440px){
+    width: 100%;
+  }
+
+}
+
+.form_header h2{
+
+}
+
+.form-movie input[type="text"] {
+  width: 300px;
+  height: 40px;
+  background-color: rgba(0,0,0,.3);
+}
+
+.form-movie input[type="submit"] {
+  margin-top: 50px;
+  border-radius: 20px;
+  background-color: rgba(0,0,0,.3);
+}
+
+.form-movie select {
+  background-color: rgba(0,0,0,.3);
+
+}
+.form-movie select option {
+  background-color: rgba(0,0,0,.3);
+}
+
+//ユーザーページの映画スタイルととのえ
+.movie-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 810px;
+  padding-inline-start: 0;
+}
+
+.movie-container li {
+  list-style-type: none;
+  padding: 0 2px;
+}
+
+.movie-line img {
+  width: 130px;
+}
+
+.movie-line p {
+  font-size: 10px;
+  width: 130px;
+  margin-top: 0;
+}
+
+//ユーザーページのleftcontainerおよびアイコン
+.left-container.user_page{
+  text-align: left;
+  border: 0px;
+}
+
+.left-container.user_page p{
+  padding-left: 35%;
+}

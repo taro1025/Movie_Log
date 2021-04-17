@@ -1,0 +1,23 @@
+<div class="container">
+
+  <div class="animate-container">
+  <p class="animate-container__p"><i class="far fa-smile user-page"></i><span id="icon-moji">楽しんだ</span> <%= @num_of_fun %> </p>
+  <p class="animate-container__p"><i class="fas fa-film user-page"></i><span id="icon-moji">映画の本数</span> <%= @num_of_movies %></p>
+  <p class="animate-container__p"><span class="fa fa-heart like-btn user-page"></span><span id="icon-moji">総いいね数</span> <%= @num_of_likes %></p>
+  <p class="animate-container__p"><i class="fab fa-rocketchat"><span id="icon-moji"></span></i><%= @num_of_comments %></p>
+  </div>
+
+<ul class="right-container__movie-container">
+  <% if @movies %>
+    <% @movies.each do |movie| %>
+      <li class="right-container__movie-container-li">
+        <% if movie.image_name %>
+          <img class="right-container__img" src="<%="/movie_images/#{movie.image_name}"%>" %>
+        <% end %>
+        <a class="right-container__link" href="<%="/posts/#{movie.id}"%>"></a>
+        <p class="right-container__p"><%= movie.title %></p>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+</div>

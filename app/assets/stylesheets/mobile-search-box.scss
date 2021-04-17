@@ -1,0 +1,22 @@
+.mobile-search-box{
+  height: 53px;
+  width: 100%;
+  background-color: #1f3140;
+  overflow:hidden;
+
+  &__form{
+    height: 29px;
+    margin: 12px;
+  }
+  &__form-text{
+    display: block;
+    color: black;
+    margin: 0 auto;
+    //padding-top: 12px;
+    //-bottom: 12px;
+    border-radius: 10px;
+    height: 29px;
+    width: 70%;
+  }
+
+}

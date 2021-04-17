@@ -1,0 +1,2 @@
+class GenreMovie < ApplicationRecord
+end

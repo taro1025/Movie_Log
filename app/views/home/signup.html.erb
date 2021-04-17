@@ -1,0 +1,21 @@
+<div class="signup">
+  <div class="container">
+    <div class="form-header"><h2>新規登録</h2></div>
+    <div class="signup-form">
+      <% @user.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+      <%= form_with(url: "/user_create", local: true) do |form| %>
+        <p>ユーザー名</p>
+        <%= form.text_field :name, value: @user.name %>
+        <p>Email</p>
+        <%= form.text_field :email, value: @user.email %>
+        <p>パスワード</p>
+        <%= form.password_field :password %>
+        <br><%= form.submit "登録" %>
+      <% end %>
+    </div>
+  </div>
+</div>

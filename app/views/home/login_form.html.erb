@@ -1,0 +1,20 @@
+<div class="login">
+  <div class="container">
+    <div class="form-header"><h2>ログイン</h2></div>
+    <div class="signup-form">
+      <% if @error_message %>
+          <div class="form-error">
+            <%= @error_message %>
+          </div>
+        <% end %>
+      <%= form_with(url: "/login", local: true) do |form| %>
+
+        <p>Email</p>
+        <%= form.text_field :email, value: @email%>
+        <p>パスワード</p>
+        <%= form.password_field :password, value: @password %>
+        <br><%= form.submit "ログイン" %>
+      <% end %>
+    </div>
+  </div>
+</div>

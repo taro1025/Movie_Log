@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie Log</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <%= stylesheet_link_tag "global", :media => "all" %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <script src="https://kit.fontawesome.com/98fc4f3e5f.js" crossorigin="anonymous"></script>
+  </head>
+  <header>
+    <div class="title"><a href="/"><img src="/MovieLog.jpg"></a></div>
+    <div class="search">
+      <%=form_tag("/movie/search") do %>
+      <p>映画の検索</p>
+      <input class="header__input" name="title" type="text">
+      <button type="submit">検索</button>
+      <% end %>
+    </div>
+    <div class="header-list">
+      <% if @current_user %>
+        <ul>
+          <li>
+            <p><%= link_to("Notifications","/notifications") %><% if @is_notice %><span class="header__notice">●</span><% end %></p>
+          </li>
+          <li>
+            <p><%= link_to("マイページ","/user_page/#{@current_user.id}") %></p>
+          </li>
+          <li>
+            <p><%= link_to("ログアウト", '/logout') %></p>
+          </li>
+        </ul>
+      <% else %>
+        <ul>
+          <li>
+            <p><%= link_to("ログイン", '/login') %></p>
+          </li>
+          <li>
+            <p><%= link_to("新規登録", '/signup') %></p>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+
+  </header>
+  <body>
+    <% if flash[:notice] %>
+     <div class="flash">
+       <%= flash[:notice] %>
+     </div>
+    <% end %>
+
+    <%= yield %>
+  </body>
+  <footer>
+    <div class="mobile-fixed-footer">
+      <% if @current_user %>
+        <ul class="mobile-fixed-footer__ul">
+          <li class="mobile-fixed-footer__li">
+            <%= link_to("/", {class: "mobile-fixed-footer__link"}) do %>
+            <i class="mobile-fixed-footer__item fas fa-door-open"></i>
+              <% end %>
+
+          </li>
+          <li class="mobile-fixed-footer__li">
+            <%= link_to("/mobile_search", {class: "mobile-fixed-footer__link"}) do %>
+              <i class="mobile-fixed-footer__item fas fa-search"></i>
+            <% end %>
+          </li>
+          <li class="mobile-fixed-footer__li">
+            <%= link_to("/mobile_manager/#{@current_user.id}", {class: "mobile-fixed-footer__link"}) do %>
+              <i class="fas fa-film"></i>
+            <% end %>
+
+          </li>
+
+          <li class="mobile-fixed-footer__li">
+            <%= link_to("/notifications", {class: "mobile-fixed-footer__link"}) do %>
+              <i class="far fa-bell"></i>
+              <% end %>
+              <% if @is_notice %><span class="mobile-fixed-footer__notice">●</span><% end %>
+          </li>
+          <li class="mobile-fixed-footer__li">
+            <%= link_to("/user_page/#{@current_user.id}", {class: "mobile-fixed-footer__link"}) do %>
+            <i class="far fa-user"></i>
+            <% end %>
+          </li>
+        </ul>
+      <% else %>
+      <ul class="mobile-fixed-footer__ul">
+        <li class="mobile-fixed-footer__li">
+          <%= link_to("/", {class: "mobile-fixed-footer__link"}) do %>
+          <i class="mobile-fixed-footer__item fas fa-door-open"></i>
+            <% end %>
+
+        </li>
+        <li class="mobile-fixed-footer__li">
+          <%= link_to("/mobile_search", {class: "mobile-fixed-footer__link"}) do %>
+            <i class="mobile-fixed-footer__item fas fa-search"></i>
+          <% end %>
+        </li>
+        <li class="mobile-fixed-footer__li">
+          <p></p>
+        </li>
+        <li class="mobile-fixed-footer__li">
+          <p><%= link_to("ログイン", '/login') %></p>
+        </li>
+        <li class="mobile-fixed-footer__li">
+          <p><%= link_to("新規登録", '/signup') %></p>
+        </li>
+      </ul>
+    <% end %>
+    </div>
+  </footer>
+</html>

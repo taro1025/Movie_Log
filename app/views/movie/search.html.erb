@@ -1,0 +1,24 @@
+<!--検索結果ね-->
+
+<div class="searched">
+<p>映画が見つからない場合 <a class="searched__link" href="/movie/create_form">映画を追加する</a></p>
+</div>
+
+<div class="movie-list">
+  <div class="movie-list__result">result</div>
+    <% if @searched_movie %>
+    <ul class="movie-list__container">
+
+      <% @searched_movie.each do |movie| %>
+      <li class="movie-list__li">
+        <% if movie.image_name %>
+          <img class="movie-list__img" src="<%="/movie_images/#{movie.image_name}"%>" %>
+        <% end %>
+        <a class="movie-list__link" href="<%="/posts/#{movie.id}"%>"></a>
+        <p class="movie-list__title"><%= movie.title %></p>
+      </li>
+      <% end %>
+      </ul>
+    <% end %>
+
+</div>

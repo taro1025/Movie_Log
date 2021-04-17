@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="form-heder"><h2>映画を追加する</h2></div>
+  <div class="form-movie">
+
+    <%= form_with(url: "/movie/add", local: true, multiport: true) do |form| %>
+    <p>タイトル(必須)</p>
+      <%= form.text_field :title %>
+      <p>ジャンル</p>
+      <%= form.select :genre1, @genre, include_blank: "選択して下さい"%>
+      <%= form.select :genre2, @genre, include_blank: "選択して下さい"%>
+      <p>映画のイメージ</p>
+      <%= form.file_field :movie_image %>
+      <br><%= form.submit "映画を追加" %>
+    <% end %>
+</div>

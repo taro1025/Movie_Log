@@ -1,0 +1,59 @@
+
+<div class="top-wrapper">
+  <div class="top-wrapper__header"><h2 class="top-wrapper__header-h2">Notifications</h2></div>
+
+  <% if @notifications %>
+  <% @notifications.each do |notification| %>
+  <% by_user = User.find_by(id: notification.visitor_id) %>
+  <div class="top-wrapper__user-wrapper">
+
+
+    <div class="top-wrapper__user-content">
+
+      <img class="top-wrapper__img" src="<%="/user_images/#{by_user.image_name}"%>">
+
+        <% if notification.action == 'like' %>
+        <div class="top-wrapper__text-content">
+
+          <a class="top-wrapper__name-link" href="<%="/user_page/#{by_user.id}"%>"><p><span class="top-wrapper__bold-name">
+            <%= by_user.name %>
+          </span> <span class="top-wrapper__sub-text">liked your post</span>
+        </p></a>
+
+        <% post = Post.find_by(id: notification.post_id) %>
+
+          <a class="top-wrapper__link" href="<%="/comments/#{post.id}"%>">
+            <p><%= simple_format(post.content, class: "top-wrapper__sub-text") %></p>
+          </a>
+
+
+        </div>
+        <% elsif notification.action == 'comment' %>
+        <div class="top-wrapper__text-content">
+          <a class="top-wrapper__name-link" href="<%="/user_page/#{by_user.id}"%>"><p><span class="top-wrapper__bold-name">
+            <%= by_user.name %>
+          </span> <span class="top-wrapper__sub-text">commented your post</span>
+          </p></a>
+        
+          <% post = Post.find_by(id: notification.comment_id) %>
+        <a class="top-wrapper__link" href="<%="/comments/#{post.id}"%>">
+          <p><%= simple_format(post.content, class: "top-wrapper__sub-text") %></p>
+        </a>
+
+        </div>
+        <% else %>
+        <div class="top-wrapper__text-content">
+          <p><span class="top-wrapper__bold-name">
+            <a class="top-wrapper__name-link" href="<%="/user_page/#{by_user.id}"%>"><%= by_user.name %>
+          </span> <span class="top-wrapper__sub-text">followed you</span></a>
+          </p>
+          <a class="top-wrapper__link" href="<%="/user_page/#{by_user.id}"%>"></a>
+        </div>
+        <% end %>
+        <div class="top-wrapper__clear"></div>
+      </div>
+    </div>
+
+  <% end %>
+  <% end %>
+</div>

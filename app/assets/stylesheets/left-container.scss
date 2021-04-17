@@ -1,0 +1,77 @@
+
+.left-container {
+  float: left;
+  width: 29%;
+  @media(max-width: 480px){
+    display: none;
+  }
+
+  &__wrapper {
+    border:2px solid rgba(255,255,255,0.7);
+  }
+  &__header {
+    text-align: center;
+  }
+
+  &__watched-btn {
+    background-color: #374654;
+    width: 100%;
+    text-align:left;
+    color: rgba(255,255,255,0.7);
+    border:0;
+    border-radius: 6px;
+    font-size: 16px;
+    padding:2px 10px 2px 10px;
+  }
+  &__watched-btn:hover{
+    background-color: #273440;
+    color: white;
+  }
+
+  &__want-btn {
+    background-color: #374654;
+    width: 100%;
+    text-align:left;
+    color: rgba(255,255,255,0.7);
+    border:0;
+    border-radius: 6px;
+    font-size: 16px;
+    padding:2px 10px 2px 10px;
+  }
+  &__want-btn:hover{
+    background-color: #273440;
+    color: white;
+  }
+
+  &__link {
+    color: rgba(255,255,255,0.7);
+  }
+  &__link:hover {
+    text-decoration: none;
+  }
+
+  //以下user_pageにあるクラス
+  &__user-page{
+    text-align: left;
+    padding-top: 100px;
+  }
+
+  &__p {
+    padding-left: 35%;
+    font-size: 20px;
+  }
+}
+
+.like-btn.user-page {
+  color: #d9d9d9;
+  font-size: 20px;
+}
+
+.far.user-page, .fas.user-page{
+  font-size: 20px;
+}
+#icon-moji {
+  padding-left: 6px;
+  font-style: normal;
+  font-size: 14px;
+}

@@ -1,0 +1,104 @@
+
+<% unless @current_user %>
+<div class="top-wrapper">
+  <div class="top-wrapper__header"><h2 class="top-wrapper__header-h2">Top</h2></div>
+
+    <% if @posts %>
+      <% @posts.each do |post| %>
+        <% comments_counter = Post.where(post_to: post.id).count %>
+        <% post_user = User.find_by(id: post.user_id) %>
+        <div class="top-wrapper__user-wrapper">
+        <div class="top-wrapper__user-content">
+
+        <% movie = Movie.find_by(id: post.movie_id) %>
+
+        <img class="top-wrapper__img" src="<%="/user_images/#{post_user.image_name}"%>">
+
+        <div class="top-wrapper__text-content">
+          <h3 class="top-wrapper__name-title"><a href="<%="/user_page/#{post_user.id}"%>"><%= post_user.name %></a> <a href="<%="posts/#{movie.id}"%>"><%= movie.title %></a></h3>
+          <%= simple_format(post.content) %>
+        </div>
+        <div class="top-wrapper__clear"></div>
+        <div class="post-footer">
+          <button class="post-footer__comment-btn"><i class="fab fa-rocketchat"><span id="icon-moji"><%= comments_counter %></span></i></button>
+
+          <% if Like.find_by(id_user_pressed_liked: @current_user, post_id: post.id) %>
+            <%= button_to("/like/destroy/#{post.id}", method: :post) do %>
+               <span class="fa fa-heart like-btn-unlike"> <%= Like.where(post_id: post.id).count %></span>
+            <% end %>
+          <% else %>
+            <%= button_to("/like/create/#{post.id}", method: :post) do %>
+              <span class="fa fa-heart like-btn"> <%= Like.where(post_id: post.id).count %></span>
+            <% end %>
+          <% end %>
+
+        </div>
+
+        <div class="modal-comment">
+          <div class="modal-comment__content">
+            <%= form_with(url: "/create_comment_to_post/#{post.id}", local: true) do |form| %>
+              <span class="modal-comment__close">&times;</span>
+              <h2 class="modal-comment__h2"><%= "「#{post.title}」へコメント" %></h2>
+              <%= form.text_area :comment, class: "modal-comment__textarea" %>
+              <br><%= form.submit "送信", class: "modal-comment__submit" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% else %>
+<div class="top-wrapper">
+  <div class="top-wrapper__header"><h2 class="top-wrapper__header-h2">Home</h2></div>
+
+    <% if @timeline %>
+      <% @timeline.each do |post| %>
+        <% comments_counter = Post.where(post_to: post.id).count %>
+        <% post_user = User.find_by(id: post.user_id) %>
+        <div class="top-wrapper__user-wrapper">
+        <div class="top-wrapper__user-content">
+
+        <% movie = Movie.find_by(id: post.movie_id) %>
+
+        <img class="top-wrapper__img" src="<%="/user_images/#{post_user.image_name}"%>">
+
+        <div class="top-wrapper__text-content">
+          <h3 class="top-wrapper__name-title"><a href="<%="/user_page/#{post_user.id}"%>"><%= post_user.name %></a> <a href="<%="posts/#{movie.id}"%>"><%= movie.title %></a></h3>
+          <%= simple_format(post.content) %>
+        </div>
+        <div class="top-wrapper__clear"></div>
+        <div class="post-footer">
+          <button class="post-footer__comment-btn"><i class="fab fa-rocketchat"><span id="icon-moji"><%= comments_counter %></span></i></button>
+
+          <% if Like.find_by(id_user_pressed_liked: @current_user, post_id: post.id) %>
+            <%= button_to("/like/destroy/#{post.id}", method: :post) do %>
+               <span class="fa fa-heart like-btn-unlike"> <%= Like.where(post_id: post.id).count %></span>
+            <% end %>
+          <% else %>
+            <%= button_to("/like/create/#{post.id}", method: :post) do %>
+              <span class="fa fa-heart like-btn"> <%= Like.where(post_id: post.id).count %></span>
+            <% end %>
+          <% end %>
+
+        </div>
+
+        <div class="modal-comment">
+          <div class="modal-comment__content">
+            <%= form_with(url: "/create_comment_to_post/#{post.id}", local: true) do |form| %>
+              <span class="modal-comment__close">&times;</span>
+              <h2 class="modal-comment__h2"><%= "「#{post.title}」へコメント" %></h2>
+              <%= form.text_area :comment, class: "modal-comment__textarea" %>
+              <br><%= form.submit "送信", class: "modal-comment__submit" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% end %>
+<%= javascript_pack_tag 'post/index' %>

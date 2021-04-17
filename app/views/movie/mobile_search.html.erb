@@ -1,0 +1,8 @@
+<div class="mobile-search-box">
+  <div class="mobile-search-box__form">
+  <%=form_with(url:"/movie/search", local: true) do |form| %>
+  <%= form.text_field :title, placeholder:"Search movie title",
+                        class:"mobile-search-box__form-text" %>
+  <% end %>
+  </div>
+</div>
