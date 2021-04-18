@@ -125,11 +125,8 @@ class HomeController < ApplicationController
     @user = User.find_by(id: params[:user_id])
     @posts = Post.where(user_id: @user.id, post_to: nil)
 
-    liked = Like.where(id_user_pressed_liked: @user).order(created_at: "DESC")
-    @liked_posts = []
-    liked.each do |like|
-      @liked_posts << Post.find_by(id: like.post_id)
-    end
+    liked = Like.where(id_user_pressed_liked: @user.id).order(created_at: "DESC")
+    @liked_posts = liked.map{|like| Post.find_by(id: like.post_id)}
 
     movie_length = @posts.count
 

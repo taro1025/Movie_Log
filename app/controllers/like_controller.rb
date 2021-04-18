@@ -1,4 +1,7 @@
 class LikeController < ApplicationController
+
+  before_action :authenticate_user
+
   def create
     like = Like.new(id_user_pressed_liked: @current_user.id,
        post_id: params[:post_id]
@@ -19,4 +22,12 @@ class LikeController < ApplicationController
     like.destroy
     redirect_back(fallback_location: "/")
   end
+
+  def authenticate_user
+    unless @current_user
+      flash[:notice] = "いいねをするには新規登録が必要です。"
+      redirect_back(fallback_location: "/")
+    end
+  end
+
 end

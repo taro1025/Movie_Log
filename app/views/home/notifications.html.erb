@@ -1,4 +1,4 @@
-
+<div class="avoid_header">
 <div class="top-wrapper">
   <div class="top-wrapper__header"><h2 class="top-wrapper__header-h2">Notifications</h2></div>
 
@@ -34,7 +34,7 @@
             <%= by_user.name %>
           </span> <span class="top-wrapper__sub-text">commented your post</span>
           </p></a>
-        
+
           <% post = Post.find_by(id: notification.comment_id) %>
         <a class="top-wrapper__link" href="<%="/comments/#{post.id}"%>">
           <p><%= simple_format(post.content, class: "top-wrapper__sub-text") %></p>
@@ -56,4 +56,5 @@
 
   <% end %>
   <% end %>
+</div>
 </div>

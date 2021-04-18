@@ -75,8 +75,8 @@
         </ul>
         </div>
 
-          <% if @posts %>
-            <% @posts.each do |post| %>
+          <% if @liked_posts %>
+            <% @liked_posts.each do |post| %>
               <% comments_counter = Post.where(post_to: post.id).count %>
               <% post_user = User.find_by(id: post.user_id) %>
               <div class="top-wrapper__user-wrapper">

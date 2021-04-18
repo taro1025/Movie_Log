@@ -1,0 +1,9 @@
+.avoid_header{
+  @media(max-width: 1980px){
+    padding-top: 90px;
+  }
+  @media(max-width: 480px){
+    padding-top: initial;
+  }
+
+}

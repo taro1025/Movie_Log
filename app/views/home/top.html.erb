@@ -1,5 +1,11 @@
 
 <% unless @current_user %>
+<div class="avoid_header">
+  <div class="form-error">
+    <% if @error_message %>
+      <%= @error_message %>
+    <% end %>
+  </div>
 <div class="top-wrapper">
   <div class="top-wrapper__header"><h2 class="top-wrapper__header-h2">Top</h2></div>
 
@@ -49,7 +55,9 @@
     <% end %>
   <% end %>
 </div>
+</div>
 <% else %>
+<div class="avoid_header">
 <div class="top-wrapper">
   <div class="top-wrapper__header"><h2 class="top-wrapper__header-h2">Home</h2></div>
 
@@ -99,6 +107,6 @@
     <% end %>
   <% end %>
 </div>
-
+</div>
 <% end %>
 <%= javascript_pack_tag 'post/index' %>
